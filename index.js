@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-// Em vez de ler o arquivo:
+
 const keyFileContent = process.env.SERVICE_ACCOUNT_JSON;
 const credentials = JSON.parse(keyFileContent);
 
@@ -13,10 +13,10 @@ const PORT = 3000;
 
 const KEYFILEPATH = path.join(__dirname, 'service-account.json');
 
-// Escopos de acesso
+
 const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
 
-// Autenticação
+
 const auth = new google.auth.GoogleAuth({
   keyFile: KEYFILEPATH,
   scopes: SCOPES,
@@ -24,7 +24,7 @@ const auth = new google.auth.GoogleAuth({
 
 const drive = google.drive({ version: 'v3', auth });
 
-// ID da pasta que você quer listar
+
 const FOLDER_ID = '1SVDVg6_hG9Jd2ogNdy9jC4RkIglbEeAu';
 
 app.get('/arquivos', async (req, res) => {
@@ -50,4 +50,5 @@ app.get('/arquivos', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
 
