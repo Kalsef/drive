@@ -1,24 +1,22 @@
 import express from 'express';
 import { google } from 'googleapis';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-
-const keyFileContent = process.env.SERVICE_ACCOUNT_JSON;
-const credentials = JSON.parse(keyFileContent);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
-
-const KEYFILEPATH = path.join(__dirname, 'service-account.json');
 
 
 const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
 
 
+const credentials = JSON.parse(process.env.SERVICE_ACCOUNT_JSON);
+
 const auth = new google.auth.GoogleAuth({
-  keyFile: KEYFILEPATH,
+  credentials,
   scopes: SCOPES,
 });
 
@@ -50,5 +48,3 @@ app.get('/arquivos', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
-
-
